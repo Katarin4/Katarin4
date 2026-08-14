@@ -30,7 +30,7 @@
 
 | Kategorija | Tehnologije / Alati |
 | :--- | :--- |
-| **Programski jezici** | `C#`, `C`, `Java`, `HTML5`, `CSS3`, `JavaScript`, `Haskell` |
+| **Programski jezici** | `C#`, `C`, `Java`, `HTML`, `CSS`, `JavaScript`, `Haskell` |
 | **Baze podataka** | `PostgreSQL` |
 | **GUI & Web Frameworks** | `WPF`, `WordPress` |
 | **Dizajn & Multimedija** | `Canva`, `GIMP`, `Inkscape`, `Olive`, `Audacity` |
