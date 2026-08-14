@@ -7,7 +7,7 @@
 
 ## 📬 Kontakt & Osnovne informacije
 
-- 📧 **Email:** [kaca.ciric06@gmail.com](mailto:kaca.ciric06@gmail.com)
+- 📧 **Email:** 
 - 📍 **Lokacija:** Beograd, Srbija
 - 🚗 **Vozačka dozvola:** B kategorija
 
