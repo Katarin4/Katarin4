@@ -3,140 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biografija / CV</title>
-    <!-- FontAwesome za ikonice -->
+    <title>Katarina Ćirić</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --text-muted: #6c757d;
-            --border-color: #e9ecef;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            --radius: 8px;
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--primary-color);
-            line-height: 1.6;
-            padding: 40px 20px;
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .cv-container {
-            max-width: 800px;
+        /* Canvas Background Animation */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
             background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 40px;
-        }
-
-        /* Header / Lični podaci */
-        header {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             margin-bottom: 30px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* Scroll Reveal Effect Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header / Profile Section */
+        .profile-header {
             text-align: center;
+            position: relative;
         }
 
-        header h1 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 5px;
+        .avatar-box {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+            animation: pulseGlow 3s infinite alternate;
         }
 
-        header .subtitle {
-            font-size: 1.1rem;
-            color: var(--accent-color);
-            font-weight: 600;
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); transform: scale(1); }
+            100% { box-shadow: 0 0 35px rgba(139, 92, 246, 0.8); transform: scale(1.05); }
+        }
+
+        .profile-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-header p {
+            color: var(--text-muted);
+            font-size: 15px;
             margin-bottom: 15px;
         }
 
         .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            list-style: none;
+            margin-top: 20px;
+            text-align: left;
         }
 
-        .contact-info span {
+        .contact-info li {
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-
-        /* Sekcije */
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid var(--accent-color);
-            display: inline-block;
-            margin-bottom: 15px;
-            padding-bottom: 3px;
-        }
-
-        /* Sadržaj sekcija */
-        .item {
-            margin-bottom: 20px;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 5px;
-        }
-
-        .item-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--primary-color);
-        }
-
-        .item-date {
-            font-size: 0.85rem;
+            gap: 12px;
+            font-size: 14px;
             color: var(--text-muted);
-            font-weight: 600;
         }
 
-        .item-sub {
-            font-style: italic;
-            color: var(--accent-color);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
+        .contact-info i {
+            color: var(--primary);
+            width: 20px;
         }
 
-        .item-description {
-            font-size: 0.95rem;
-            color: #4a5568;
+        /* Headings */
+        h2.section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
         }
 
-        .item-description ul {
-            margin-left: 20px;
-            margin-top: 5px;
+        h2.section-title i {
+            color: var(--accent);
         }
 
-        /* Vještine / Tehnologije */
-        .tags {
+        /* Badges / Tech Tags */
+        .tech-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
@@ -144,92 +173,524 @@
         }
 
         .tag {
-            background-color: #edf2f7;
-            color: #4a5568;
-            padding: 4px 10px;
+            background: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Project Filters */
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Project Cards Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
             border-radius: 15px;
-            font-size: 0.85rem;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .project-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .project-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Timeline Items (Volontiranje & Edukacija) */
+        .timeline-item {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 25px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--primary);
             font-weight: 600;
         }
 
-        @media (max-width: 600px) {
-            .cv-container {
-                padding: 20px;
-            }
-            .item-header {
-                flex-direction: column;
-            }
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        .timeline-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        /* Expanded Skills Section */
+        .skill-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 15px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-item {
+            margin-bottom: 12px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .skill-bar {
+            height: 7px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0;
+            border-radius: 10px;
+            transition: width 1.5s ease-in-out;
         }
     </style>
 </head>
 <body>
 
-    <div class="cv-container">
+    <!-- Particle Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="container">
         
-        <!-- Zaglavlje / Kontakt -->
-        <header>
-            <h1>Ime i Prezime</h1>
-            <div class="subtitle">Student / Istraživač</div>
-            <div class="contact-info">
-                <span><i class="fa-solid fa-envelope"></i> email@example.com</span>
-                <span><i class="fa-solid fa-phone"></i> +381 6X XXX XXXX</span>
-                <span><i class="fa-solid fa-location-dot"></i> Beograd, Srbija</span>
-                <span><i class="fa-brands fa-linkedin"></i> linkedin.com/in/profil</span>
-            </div>
-        </header>
-
-        <!-- Obrazovanje -->
-        <section class="section">
-            <h2 class="section-title">Obrazovanje</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Univerzitet u Beogradu</span>
-                    <span class="item-date">202X. – Trenutno</span>
-                </div>
-                <div class="item-sub">Informacione tehnologije / Računarstvo</div>
-            </div>
-        </section>
-
-        <!-- Projekat u Petnici -->
-        <section class="section">
-            <h2 class="section-title">Istraživački projekti</h2>
+        <!-- LEFT COLUMN (Sidebar) -->
+        <aside class="sidebar">
             
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Document Search Real Time</span>
-                    <span class="item-date">Istraživačka stanica Petnica</span>
+            <!-- Profile Card -->
+            <div class="glass-card profile-header reveal">
+                <div class="avatar-box">
+                    <i class="fa-solid fa-code"></i>
                 </div>
-                <div class="item-sub">Istraživački rad / Samostalni projekat</div>
-                <div class="item-description">
-                    <p>Razvoj i analiza performansi sistema za pretraživanje i indeksiranje tekstualnih dokumenata u realnom vremenu.</p>
-                    <ul>
-                        <li>Implementacija algoritama za pretragu teksta i naziva datoteka.</li>
-                        <li>Optimizacija vremena odziva i analitička obrada ulaznih podataka.</li>
-                        <li>Pisanje naučno-istraživačkog rada i prezentacija rezultata.</li>
-                    </ul>
-                    <div class="tags">
-                        <span class="tag">Algoritmi</span>
-                        <span class="tag">Strukture podataka</span>
-                        <span class="tag">Pretraga u realnom vremenu</span>
-                        <span class="tag">IS Petnica</span>
+                <h1>Katarina Ćirić</h1>
+                <p>Student @ FON</p>
+                
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-envelope"></i> kaca.ciric06@gmail.com</li>
+                    <li><i class="fa-solid fa-phone"></i> +381 63 1239486</li>
+                    <li><i class="fa-solid fa-location-dot"></i> Beograd, Srbija</li>
+                    <li><i class="fa-solid fa-car"></i> Vozačka dozvola: B</li>
+                </ul>
+            </div>
+
+            <!-- About Me -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-user"></i> O meni</h2>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                    Studentkinja Informacionih sistema i tehnologija na FON-u sa snažnim fokusom na računarske nauke. Posedujem praktično iskustvo u razvoju softverskih rešenja, aplikacija i baza podataka prvenstveno koristeći C#, C, Java i PostgreSQL.
+                </p>
+            </div>
+
+            <!-- DETAILED SKILLS & TOOLS SECTION -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Tehnologije i Alati</h2>
+                
+                <!-- Programming Languages -->
+                <div class="skill-group-title"><i class="fa-solid fa-code"></i> Programski jezici & Baze</div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>C# / WPF</span><span>Napredno</span></div>
+                    <div class="skill-bar"><div class="skill-progress" data-width="90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>C</span><span>Srednji nivo</span></div>
+                    <div class="skill-bar"><div class="skill-progress" data-width="75%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Java</span><span>Osnovno/Srednje</span></div>
+                    <div class="skill-bar"><div class="skill-progress" data-width="65%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>HTML / CSS / JS</span><span>Napredno</span></div>
+                    <div class="skill-bar"><div class="skill-progress" data-width="88%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>PostgreSQL</span><span>Srednji nivo</span></div>
+                    <div class="skill-bar"><div class="skill-progress" data-width="80%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Haskell</span><span>Osnovni nivo</span></div>
+                    <div class="skill-bar"><div class="skill-progress" data-width="50%"></div></div>
+                </div>
+
+                <!-- Design & Multimedia -->
+                <div class="skill-group-title"><i class="fa-solid fa-palette"></i> Dizajn & Multimedija</div>
+                <div class="tech-tags">
+                    <span class="tag">Canva</span>
+                    <span class="tag">GIMP</span>
+                    <span class="tag">Inkscape</span>
+                    <span class="tag">Olive</span>
+                    <span class="tag">Audacity</span>
+                </div>
+
+                <!-- Office & Utilities -->
+                <div class="skill-group-title"><i class="fa-solid fa-toolbox"></i> Radni alati & Web</div>
+                <div class="tech-tags">
+                    <span class="tag">MS Word</span>
+                    <span class="tag">Excel</span>
+                    <span class="tag">PowerPoint</span>
+                    <span class="tag">WordPress</span>
+                    <span class="tag">Octave</span>
+                    <span class="tag">Logisim</span>
+                </div>
+            </div>
+
+            <!-- Achievements & Mensa -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-award"></i> Priznanja</h2>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026 - Danas</div>
+                    <div class="timeline-title">Aktivni član Mense</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Takmičenje</div>
+                    <div class="timeline-title">IZAZOV Specijal - 2. mesto</div>
+                    <div class="timeline-sub">Dostignuća mladih u Srbiji u partnerstvu sa Climate Innovation Hub, Connecting i NTP Niš</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Programiranje</div>
+                    <div class="timeline-title">Petlja takmičenje</div>
+                    <div class="timeline-sub">2. i 3. razred - prolazak na gradsko takmičenje</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Gramatika</div>
+                    <div class="timeline-title">Srpski jezik i književnost - 3. mesto</div>
+                    <div class="timeline-sub">Opštinsko takmičenje u 3. razredu</div>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- RIGHT COLUMN (Main Content) -->
+        <main class="main-content">
+
+            <!-- Education Section -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Obrazovanje</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Jul 2025. - Sadašnjost</div>
+                    <div class="timeline-title">Fakultet organizacionih nauka (FON)</div>
+                    <div class="timeline-sub">Informacioni sistemi i tehnologije (1. godina - Prosek 8,80)</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep 2021. - Jun 2025.</div>
+                    <div class="timeline-title">Deveta gimnazija „Mihailo Petrović Alas“</div>
+                    <div class="timeline-sub">Učenici sa posebnim sposobnostima za računarstvo i informatiku</div>
+                </div>
+            </div>
+
+            <!-- Projects Section with Filter -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-code-commit"></i> Praktični rad na projektima</h2>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Svi projekti</button>
+                    <button class="filter-btn" data-filter="csharp">C# / GUI / WPF</button>
+                    <button class="filter-btn" data-filter="db">Baze podataka</button>
+                    <button class="filter-btn" data-filter="web">Web & Hardver</button>
+                </div>
+
+                <div class="projects-grid">
+                    
+                    <div class="project-card" data-category="csharp">
+                        <h3>Video igrica Pac-man</h3>
+                        <p>Igra razvijena primenom OOP principa. Uključuje logiku kretanja likova, detekciju kolizija, praćenje rezultata i interfejs.</p>
+                        <div class="tech-tags"><span class="tag">C#</span><span class="tag">OOP</span><span class="tag">GUI</span></div>
                     </div>
+
+                    <div class="project-card" data-category="db">
+                        <h3>Baza za Prijemni ispit iz Matematike</h3>
+                        <p>Dizajn relacione baze za skladištenje zadataka, rešenja, rezultat testova i korisnika za pripremu prijemnog.</p>
+                        <div class="tech-tags"><span class="tag">PostgreSQL</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="csharp">
+                        <h3>Simulacija rada Enigme (Edukacija)</h3>
+                        <p>Aplikacija namenjena učenju kriptografije kroz vizuelnu simulaciju rada istorijske Enigma mašine.</p>
+                        <div class="tech-tags"><span class="tag">C#</span><span class="tag">WPF</span><span class="tag">GUI</span><span class="tag">OOP</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="csharp">
+                        <h3>Sudoku</h3>
+                        <p>Razvoj desktop aplikacije za igranje i rešavanje Sudoku zagonetki. Implementiran Backtracking algoritam.</p>
+                        <div class="tech-tags"><span class="tag">C#</span><span class="tag">GUI</span><span class="tag">Backtracking</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="web">
+                        <h3>Video igrica Tetris</h3>
+                        <p>Klasična web igrica sa logikom rotacije i spuštanja blokova, detekcijom popunjenih redova i bodovanjem.</p>
+                        <div class="tech-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="db">
+                        <h3>Baza za Veterinarsku kliniku</h3>
+                        <p>Projektovanje relacione baze podataka za evidenciju pacijenata, vlasnika, kartona lečenja i zakazanih pregleda.</p>
+                        <div class="tech-tags"><span class="tag">PostgreSQL</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="csharp">
+                        <h3>Simulacija rada Enigme (Konzola)</h3>
+                        <p>Konzolna aplikacija koja simulira algoritam šifrovanja i dešifrovanja zasnovan na radu Enigma mašine.</p>
+                        <div class="tech-tags"><span class="tag">C#</span><span class="tag">CLI</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="csharp">
+                        <h3>Uređivač teksta</h3>
+                        <p>Konzolna aplikacija za kreiranje, izmenu i manipulaciju tekstualnim fajlovima sa komandama za pretragu.</p>
+                        <div class="tech-tags"><span class="tag">C#</span><span class="tag">CLI</span></div>
+                    </div>
+
+                    <div class="project-card" data-category="web">
+                        <h3>Simulacija semafora na raskrsnici</h3>
+                        <p>Hardverska i logička simulacija upravljanja saobraćajnim signalima korišćenjem logičkih kapija.</p>
+                        <div class="tech-tags"><span class="tag">Logisim</span><span class="tag">Logičke kapije</span></div>
+                    </div>
+
                 </div>
             </div>
-        </section>
 
-        <!-- Veštine -->
-        <section class="section">
-            <h2 class="section-title">Tehničke veštine</h2>
-            <div class="tags">
-                <span class="tag">C / C++</span>
-                <span class="tag">Python</span>
-                <span class="tag">HTML5 / CSS3</span>
-                <span class="tag">Git / GitHub</span>
-                <span class="tag">Algoritmi i strukture podataka</span>
+            <!-- ALL VOLUNTEERING ACTIVITIES (SVA VOLONTIRANJA) -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-hands-holding-heart"></i> Volontiranja</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Novembar 2025.</div>
+                    <div class="timeline-title">Beogradski polumaraton</div>
+                    <div class="timeline-sub">Beograd</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Radila na osveženju i okrepi učesnika na traci maratona.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Mart 2025.</div>
+                    <div class="timeline-title">Prikupljanje namirnica za banku hrane</div>
+                    <div class="timeline-sub">Centar Zvezda, Beograd</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Učestvovala u sortiranju i prikupljanju namirnica za ugrožene porodice.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Septembar 2024.</div>
+                    <div class="timeline-title">Junior NBA Arena Sport Tournament</div>
+                    <div class="timeline-sub">Beograd</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Organizovala timove u svlačionicama i delila zvanične rezultate utakmica.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">April 2024.</div>
+                    <div class="timeline-title">Beogradski maraton</div>
+                    <div class="timeline-sub">Beograd</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Radila na stanicama za osveženje i pružanju podrške trkačima duž staze.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">April 2024.</div>
+                    <div class="timeline-title">Dečiji maraton</div>
+                    <div class="timeline-sub">Beogradski zoo vrt</div>
+                    <p style="font-size: 13px; color: var(--text-muted);">Organizovala pripreme za maraton i održavala ciljnu traku za učesnike.</p>
+                </div>
             </div>
-        </section>
 
+            <!-- Hobbies -->
+            <div class="glass-card reveal">
+                <h2 class="section-title"><i class="fa-solid fa-heart"></i> Hobiji i Interesovanja</h2>
+                <div class="tech-tags">
+                    <span class="tag" style="padding: 8px 15px; font-size: 13px;"><i class="fa-solid fa-person-dancing"></i> Ples od 2013. godine (Državni prvak u latino-američkim plesovima)</span>
+                    <span class="tag" style="padding: 8px 15px; font-size: 13px;"><i class="fa-solid fa-camera"></i> Fotografija</span>
+                    <span class="tag" style="padding: 8px 15px; font-size: 13px;"><i class="fa-solid fa-book-open"></i> Čitanje knjiga (trileri, kriminalistika i misterije)</span>
+                </div>
+            </div>
+
+        </main>
     </div>
 
+    <!-- JavaScript logic -->
+    <script>
+        // 1. Interactive Canvas Particles Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.4)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // 2. Scroll Reveal Animations & Skill Bars
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                    
+                    // Animate Progress Bars inside this card
+                    const bars = el.querySelectorAll('.skill-progress');
+                    bars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    });
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Trigger initially
+
+        // 3. Project Filter Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => card.style.opacity = '1', 50);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // 4. 3D Tilt Effect on Glass Cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width/2;
+                const y = e.clientY - rect.top - rect.height/2;
+                card.style.transform = `rotateY(${x / 30}deg) rotateX(${-y / 30}deg) translateY(-5px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateY(0deg) rotateX(0deg) translateY(0px)';
+            });
+        });
+    </script>
 </body>
 </html>
