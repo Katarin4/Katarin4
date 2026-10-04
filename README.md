@@ -18,7 +18,7 @@
 ### 🏛️ **Fakultet organizacionih nauka (FON)**
 *Jul 2025. – Sadašnjost*  
 - **Smer:** Informacioni sistemi i tehnologije  
-- **Nivo:** 1. godina osnovnih studija | **Prosek:** 8,80  
+- **Nivo:** 2. godina osnovnih studija | **Prosek:** 8,64  
 
 ### 🏫 **Deveta gimnazija „Mihailo Petrović Alas“**
 *Sep 2021. – Jun 2025.*  
